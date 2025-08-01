@@ -1,0 +1,9 @@
+version: "3"
+
+tasks:
+  generate:
+    aliases:
+      - gen
+    desc: "Easy"
+    cmds:
+      - protoc -I proto proto/*.proto --go_out=./gen/profile --go_opt=paths=source_relative --go-grpc_out=./gen/profile

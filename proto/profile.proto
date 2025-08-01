@@ -1,0 +1,34 @@
+syntax = "proto3";
+
+package auth;
+
+option go_package = "oneway/profile/v1;profilev1";
+
+service ProfileService {
+  rpc GetProfile(GetProfileRequest) returns (Profile);
+  rpc UpdateProfile(UpdateProfileRequest) returns (UpdateProfileResponse);
+}
+message GetProfileRequest {
+  int64 userID = 1; // Изменено на string
+}
+
+message Profile {
+  int64 userID = 1;      
+  string avatar_url = 2;
+  string display_name = 3;
+  string bio = 4;
+  string username = 5;    
+  string surname = 6;     
+  string phoneNumber = 7; 
+  string email = 8;       
+}
+
+message UpdateProfileRequest {
+  string userID = 1;   
+  Profile profile = 2;  
+}
+
+message UpdateProfileResponse {
+  bool isSuccess = 1;
+}
+
