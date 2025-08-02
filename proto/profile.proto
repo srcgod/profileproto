@@ -3,32 +3,28 @@ syntax = "proto3";
 package auth;
 
 option go_package = "oneway/profile/v1;profilev1";
+import "validate/validate.proto";
 
-service ProfileService {
-  rpc GetProfile(GetProfileRequest) returns (Profile);
-  rpc UpdateProfile(UpdateProfileRequest) returns (UpdateProfileResponse);
-}
 message GetProfileRequest {
-  int64 userID = 1; // Изменено на string
+  int64 userID = 1 [(validate.rules).int64 = {gt: 0}];
 }
 
 message Profile {
-  int64 userID = 1;      
-  string avatar_url = 2;
-  string display_name = 3;
-  string bio = 4;
-  string username = 5;    
-  string surname = 6;     
-  string phoneNumber = 7; 
-  string email = 8;       
+  int64 userID = 1 [(validate.rules).int64 = {gt: 0}];
+  string avatar_url = 2 [(validate.rules).string = {uri: true}];
+  string display_name = 3 [(validate.rules).string = {min_len: 3, max_len: 50}];
+  string bio = 4 [(validate.rules).string = {max_len: 200}];
+  string username = 5 [(validate.rules).string = {pattern: "^[a-zA-Z0-9_]+$", min_len: 3, max_len: 30}];
+  string surname = 6 [(validate.rules).string = {min_len: 2, max_len: 50}];
+  string phoneNumber = 7 [(validate.rules).string = {pattern: "^\\+?[1-9]\\d{1,14}$"}];
+  string email = 8 [(validate.rules).string = {email: true}];
 }
 
 message UpdateProfileRequest {
-  string userID = 1;   
-  Profile profile = 2;  
+  string userID = 1 [(validate.rules).string = {uuid: true}];
+  Profile profile = 2 [(validate.rules).message = {required: true}];
 }
 
 message UpdateProfileResponse {
   bool isSuccess = 1;
 }
-
