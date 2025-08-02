@@ -1,4 +1,4 @@
-module github.com/srcgod/authproto
+module github.com/srcgod/profileproto
 
 go 1.24.1
 
