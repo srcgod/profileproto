@@ -5,6 +5,11 @@ package auth;
 option go_package = "oneway/profile/v1;profilev1";
 import "validate/validate.proto";
 
+service ProfileService {
+  rpc GetProfile(GetProfileRequest) returns (Profile);
+  rpc UpdateProfile(UpdateProfileRequest) returns (UpdateProfileResponse);
+}
+
 message GetProfileRequest {
   int64 userID = 1 [(validate.rules).int64 = {gt: 0}];
 }

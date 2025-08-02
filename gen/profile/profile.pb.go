@@ -283,7 +283,11 @@ const file_profile_proto_rawDesc = "" +
 	"\x06userID\x18\x01 \x01(\tB\b\xfaB\x05r\x03\xb0\x01\x01R\x06userID\x121\n" +
 	"\aprofile\x18\x02 \x01(\v2\r.auth.ProfileB\b\xfaB\x05\x8a\x01\x02\x10\x01R\aprofile\"5\n" +
 	"\x15UpdateProfileResponse\x12\x1c\n" +
-	"\tisSuccess\x18\x01 \x01(\bR\tisSuccessB\x1dZ\x1boneway/profile/v1;profilev1b\x06proto3"
+	"\tisSuccess\x18\x01 \x01(\bR\tisSuccess2\x90\x01\n" +
+	"\x0eProfileService\x124\n" +
+	"\n" +
+	"GetProfile\x12\x17.auth.GetProfileRequest\x1a\r.auth.Profile\x12H\n" +
+	"\rUpdateProfile\x12\x1a.auth.UpdateProfileRequest\x1a\x1b.auth.UpdateProfileResponseB\x1dZ\x1boneway/profile/v1;profilev1b\x06proto3"
 
 var (
 	file_profile_proto_rawDescOnce sync.Once
@@ -306,8 +310,12 @@ var file_profile_proto_goTypes = []any{
 }
 var file_profile_proto_depIdxs = []int32{
 	1, // 0: auth.UpdateProfileRequest.profile:type_name -> auth.Profile
-	1, // [1:1] is the sub-list for method output_type
-	1, // [1:1] is the sub-list for method input_type
+	0, // 1: auth.ProfileService.GetProfile:input_type -> auth.GetProfileRequest
+	2, // 2: auth.ProfileService.UpdateProfile:input_type -> auth.UpdateProfileRequest
+	1, // 3: auth.ProfileService.GetProfile:output_type -> auth.Profile
+	3, // 4: auth.ProfileService.UpdateProfile:output_type -> auth.UpdateProfileResponse
+	3, // [3:5] is the sub-list for method output_type
+	1, // [1:3] is the sub-list for method input_type
 	1, // [1:1] is the sub-list for extension type_name
 	1, // [1:1] is the sub-list for extension extendee
 	0, // [0:1] is the sub-list for field type_name
@@ -326,7 +334,7 @@ func file_profile_proto_init() {
 			NumEnums:      0,
 			NumMessages:   4,
 			NumExtensions: 0,
-			NumServices:   0,
+			NumServices:   1,
 		},
 		GoTypes:           file_profile_proto_goTypes,
 		DependencyIndexes: file_profile_proto_depIdxs,
