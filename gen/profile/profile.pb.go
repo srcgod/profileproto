@@ -10,6 +10,7 @@ import (
 	_ "github.com/envoyproxy/protoc-gen-validate/validate"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
+	fieldmaskpb "google.golang.org/protobuf/types/known/fieldmaskpb"
 	reflect "reflect"
 	sync "sync"
 	unsafe "unsafe"
@@ -168,8 +169,9 @@ func (x *Profile) GetEmail() string {
 
 type UpdateProfileRequest struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
-	UserID        string                 `protobuf:"bytes,1,opt,name=userID,proto3" json:"userID,omitempty"`
+	UserID        int64                  `protobuf:"varint,1,opt,name=userID,proto3" json:"userID,omitempty"`
 	Profile       *Profile               `protobuf:"bytes,2,opt,name=profile,proto3" json:"profile,omitempty"`
+	UpdateMask    *fieldmaskpb.FieldMask `protobuf:"bytes,3,opt,name=update_mask,json=updateMask,proto3" json:"update_mask,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -204,16 +206,23 @@ func (*UpdateProfileRequest) Descriptor() ([]byte, []int) {
 	return file_profile_proto_rawDescGZIP(), []int{2}
 }
 
-func (x *UpdateProfileRequest) GetUserID() string {
+func (x *UpdateProfileRequest) GetUserID() int64 {
 	if x != nil {
 		return x.UserID
 	}
-	return ""
+	return 0
 }
 
 func (x *UpdateProfileRequest) GetProfile() *Profile {
 	if x != nil {
 		return x.Profile
+	}
+	return nil
+}
+
+func (x *UpdateProfileRequest) GetUpdateMask() *fieldmaskpb.FieldMask {
+	if x != nil {
+		return x.UpdateMask
 	}
 	return nil
 }
@@ -266,7 +275,7 @@ var File_profile_proto protoreflect.FileDescriptor
 
 const file_profile_proto_rawDesc = "" +
 	"\n" +
-	"\rprofile.proto\x12\x04auth\x1a\x17validate/validate.proto\"4\n" +
+	"\rprofile.proto\x12\x04auth\x1a\x17validate/validate.proto\x1a google/protobuf/field_mask.proto\"4\n" +
 	"\x11GetProfileRequest\x12\x1f\n" +
 	"\x06userID\x18\x01 \x01(\x03B\a\xfaB\x04\"\x02 \x00R\x06userID\"\xd6\x02\n" +
 	"\aProfile\x12\x1f\n" +
@@ -278,10 +287,12 @@ const file_profile_proto_rawDesc = "" +
 	"\busername\x18\x05 \x01(\tB\x1a\xfaB\x17r\x15\x10\x03\x18\x1e2\x0f^[a-zA-Z0-9_]+$R\busername\x12#\n" +
 	"\asurname\x18\x06 \x01(\tB\t\xfaB\x06r\x04\x10\x02\x182R\asurname\x12;\n" +
 	"\vphoneNumber\x18\a \x01(\tB\x19\xfaB\x16r\x142\x12^\\+?[1-9]\\d{1,14}$R\vphoneNumber\x12\x1d\n" +
-	"\x05email\x18\b \x01(\tB\a\xfaB\x04r\x02`\x01R\x05email\"k\n" +
-	"\x14UpdateProfileRequest\x12 \n" +
-	"\x06userID\x18\x01 \x01(\tB\b\xfaB\x05r\x03\xb0\x01\x01R\x06userID\x121\n" +
-	"\aprofile\x18\x02 \x01(\v2\r.auth.ProfileB\b\xfaB\x05\x8a\x01\x02\x10\x01R\aprofile\"5\n" +
+	"\x05email\x18\b \x01(\tB\a\xfaB\x04r\x02`\x01R\x05email\"\xa7\x01\n" +
+	"\x14UpdateProfileRequest\x12\x1f\n" +
+	"\x06userID\x18\x01 \x01(\x03B\a\xfaB\x04\"\x02 \x00R\x06userID\x121\n" +
+	"\aprofile\x18\x02 \x01(\v2\r.auth.ProfileB\b\xfaB\x05\x8a\x01\x02\x10\x01R\aprofile\x12;\n" +
+	"\vupdate_mask\x18\x03 \x01(\v2\x1a.google.protobuf.FieldMaskR\n" +
+	"updateMask\"5\n" +
 	"\x15UpdateProfileResponse\x12\x1c\n" +
 	"\tisSuccess\x18\x01 \x01(\bR\tisSuccess2\x90\x01\n" +
 	"\x0eProfileService\x124\n" +
@@ -307,18 +318,20 @@ var file_profile_proto_goTypes = []any{
 	(*Profile)(nil),               // 1: auth.Profile
 	(*UpdateProfileRequest)(nil),  // 2: auth.UpdateProfileRequest
 	(*UpdateProfileResponse)(nil), // 3: auth.UpdateProfileResponse
+	(*fieldmaskpb.FieldMask)(nil), // 4: google.protobuf.FieldMask
 }
 var file_profile_proto_depIdxs = []int32{
 	1, // 0: auth.UpdateProfileRequest.profile:type_name -> auth.Profile
-	0, // 1: auth.ProfileService.GetProfile:input_type -> auth.GetProfileRequest
-	2, // 2: auth.ProfileService.UpdateProfile:input_type -> auth.UpdateProfileRequest
-	1, // 3: auth.ProfileService.GetProfile:output_type -> auth.Profile
-	3, // 4: auth.ProfileService.UpdateProfile:output_type -> auth.UpdateProfileResponse
-	3, // [3:5] is the sub-list for method output_type
-	1, // [1:3] is the sub-list for method input_type
-	1, // [1:1] is the sub-list for extension type_name
-	1, // [1:1] is the sub-list for extension extendee
-	0, // [0:1] is the sub-list for field type_name
+	4, // 1: auth.UpdateProfileRequest.update_mask:type_name -> google.protobuf.FieldMask
+	0, // 2: auth.ProfileService.GetProfile:input_type -> auth.GetProfileRequest
+	2, // 3: auth.ProfileService.UpdateProfile:input_type -> auth.UpdateProfileRequest
+	1, // 4: auth.ProfileService.GetProfile:output_type -> auth.Profile
+	3, // 5: auth.ProfileService.UpdateProfile:output_type -> auth.UpdateProfileResponse
+	4, // [4:6] is the sub-list for method output_type
+	2, // [2:4] is the sub-list for method input_type
+	2, // [2:2] is the sub-list for extension type_name
+	2, // [2:2] is the sub-list for extension extendee
+	0, // [0:2] is the sub-list for field type_name
 }
 
 func init() { file_profile_proto_init() }

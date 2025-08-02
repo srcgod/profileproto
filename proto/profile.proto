@@ -4,6 +4,8 @@ package auth;
 
 option go_package = "oneway/profile/v1;profilev1";
 import "validate/validate.proto";
+import "google/protobuf/field_mask.proto";
+
 
 service ProfileService {
   rpc GetProfile(GetProfileRequest) returns (Profile);
@@ -26,8 +28,9 @@ message Profile {
 }
 
 message UpdateProfileRequest {
-  string userID = 1 [(validate.rules).string = {uuid: true}];
+  int64 userID = 1 [(validate.rules).int64 = {gt: 0}];
   Profile profile = 2 [(validate.rules).message = {required: true}];
+  google.protobuf.FieldMask update_mask = 3;
 }
 
 message UpdateProfileResponse {
