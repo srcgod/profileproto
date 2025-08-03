@@ -148,6 +148,134 @@ var _ interface {
 	ErrorName() string
 } = GetProfileRequestValidationError{}
 
+// Validate checks the field values on GetProfileResponse with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the first error encountered is returned, or nil if there are no violations.
+func (m *GetProfileResponse) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on GetProfileResponse with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// GetProfileResponseMultiError, or nil if none found.
+func (m *GetProfileResponse) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *GetProfileResponse) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	// no validation rules for ID
+
+	// no validation rules for UserID
+
+	// no validation rules for Username
+
+	// no validation rules for PhoneNumber
+
+	// no validation rules for Email
+
+	if m.AvatarUrl != nil {
+		// no validation rules for AvatarUrl
+	}
+
+	if m.DisplayName != nil {
+		// no validation rules for DisplayName
+	}
+
+	if m.Bio != nil {
+		// no validation rules for Bio
+	}
+
+	if m.Surname != nil {
+		// no validation rules for Surname
+	}
+
+	if len(errors) > 0 {
+		return GetProfileResponseMultiError(errors)
+	}
+
+	return nil
+}
+
+// GetProfileResponseMultiError is an error wrapping multiple validation errors
+// returned by GetProfileResponse.ValidateAll() if the designated constraints
+// aren't met.
+type GetProfileResponseMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m GetProfileResponseMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m GetProfileResponseMultiError) AllErrors() []error { return m }
+
+// GetProfileResponseValidationError is the validation error returned by
+// GetProfileResponse.Validate if the designated constraints aren't met.
+type GetProfileResponseValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e GetProfileResponseValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e GetProfileResponseValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e GetProfileResponseValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e GetProfileResponseValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e GetProfileResponseValidationError) ErrorName() string {
+	return "GetProfileResponseValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e GetProfileResponseValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sGetProfileResponse.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = GetProfileResponseValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = GetProfileResponseValidationError{}
+
 // Validate checks the field values on Profile with the rules defined in the
 // proto definition for this message. If any rules are violated, the first
 // error encountered is returned, or nil if there are no violations.

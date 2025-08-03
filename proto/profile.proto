@@ -8,12 +8,24 @@ import "google/protobuf/field_mask.proto";
 
 
 service ProfileService {
-  rpc GetProfile(GetProfileRequest) returns (Profile);
+  rpc GetProfile(GetProfileRequest) returns (GetProfileResponse);
   rpc UpdateProfile(UpdateProfileRequest) returns (UpdateProfileResponse);
 }
 
 message GetProfileRequest {
   int64 userID = 1 [(validate.rules).int64 = {gt: 0}];
+}
+
+message GetProfileResponse {
+  int64 ID = 9;
+  int64 userID = 1;
+  optional string avatar_url = 2 ;
+  optional string display_name = 3 ;
+  optional string bio = 4 ;
+  string username = 5 ;
+  optional string surname = 6 ;
+  string phoneNumber = 7;
+  string email = 8 ;
 }
 
 message Profile {
