@@ -73,10 +73,10 @@ type Profile struct {
 	AvatarUrl     *string                `protobuf:"bytes,2,opt,name=avatar_url,json=avatarUrl,proto3,oneof" json:"avatar_url,omitempty"`
 	DisplayName   *string                `protobuf:"bytes,3,opt,name=display_name,json=displayName,proto3,oneof" json:"display_name,omitempty"`
 	Bio           *string                `protobuf:"bytes,4,opt,name=bio,proto3,oneof" json:"bio,omitempty"`
-	Username      *string                `protobuf:"bytes,5,opt,name=username,proto3,oneof" json:"username,omitempty"`
+	Username      string                 `protobuf:"bytes,5,opt,name=username,proto3" json:"username,omitempty"`
 	Surname       *string                `protobuf:"bytes,6,opt,name=surname,proto3,oneof" json:"surname,omitempty"`
-	PhoneNumber   *string                `protobuf:"bytes,7,opt,name=phoneNumber,proto3,oneof" json:"phoneNumber,omitempty"`
-	Email         *string                `protobuf:"bytes,8,opt,name=email,proto3,oneof" json:"email,omitempty"`
+	PhoneNumber   string                 `protobuf:"bytes,7,opt,name=phoneNumber,proto3" json:"phoneNumber,omitempty"`
+	Email         string                 `protobuf:"bytes,8,opt,name=email,proto3" json:"email,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -140,8 +140,8 @@ func (x *Profile) GetBio() string {
 }
 
 func (x *Profile) GetUsername() string {
-	if x != nil && x.Username != nil {
-		return *x.Username
+	if x != nil {
+		return x.Username
 	}
 	return ""
 }
@@ -154,15 +154,15 @@ func (x *Profile) GetSurname() string {
 }
 
 func (x *Profile) GetPhoneNumber() string {
-	if x != nil && x.PhoneNumber != nil {
-		return *x.PhoneNumber
+	if x != nil {
+		return x.PhoneNumber
 	}
 	return ""
 }
 
 func (x *Profile) GetEmail() string {
-	if x != nil && x.Email != nil {
-		return *x.Email
+	if x != nil {
+		return x.Email
 	}
 	return ""
 }
@@ -277,25 +277,22 @@ const file_profile_proto_rawDesc = "" +
 	"\n" +
 	"\rprofile.proto\x12\x04auth\x1a\x17validate/validate.proto\x1a google/protobuf/field_mask.proto\"4\n" +
 	"\x11GetProfileRequest\x12\x1f\n" +
-	"\x06userID\x18\x01 \x01(\x03B\a\xfaB\x04\"\x02 \x00R\x06userID\"\xd4\x03\n" +
+	"\x06userID\x18\x01 \x01(\x03B\a\xfaB\x04\"\x02 \x00R\x06userID\"\x9e\x03\n" +
 	"\aProfile\x12\x1f\n" +
 	"\x06userID\x18\x01 \x01(\x03B\a\xfaB\x04\"\x02 \x00R\x06userID\x12,\n" +
 	"\n" +
 	"avatar_url\x18\x02 \x01(\tB\b\xfaB\x05r\x03\x88\x01\x01H\x00R\tavatarUrl\x88\x01\x01\x121\n" +
 	"\fdisplay_name\x18\x03 \x01(\tB\t\xfaB\x06r\x04\x10\x03\x182H\x01R\vdisplayName\x88\x01\x01\x12\x1f\n" +
-	"\x03bio\x18\x04 \x01(\tB\b\xfaB\x05r\x03\x18\xc8\x01H\x02R\x03bio\x88\x01\x01\x12;\n" +
-	"\busername\x18\x05 \x01(\tB\x1a\xfaB\x17r\x15\x10\x03\x18\x1e2\x0f^[a-zA-Z0-9_]+$H\x03R\busername\x88\x01\x01\x12(\n" +
-	"\asurname\x18\x06 \x01(\tB\t\xfaB\x06r\x04\x10\x02\x182H\x04R\asurname\x88\x01\x01\x12@\n" +
-	"\vphoneNumber\x18\a \x01(\tB\x19\xfaB\x16r\x142\x12^\\+?[1-9]\\d{1,14}$H\x05R\vphoneNumber\x88\x01\x01\x12\"\n" +
-	"\x05email\x18\b \x01(\tB\a\xfaB\x04r\x02`\x01H\x06R\x05email\x88\x01\x01B\r\n" +
+	"\x03bio\x18\x04 \x01(\tB\b\xfaB\x05r\x03\x18\xc8\x01H\x02R\x03bio\x88\x01\x01\x126\n" +
+	"\busername\x18\x05 \x01(\tB\x1a\xfaB\x17r\x15\x10\x03\x18\x1e2\x0f^[a-zA-Z0-9_]+$R\busername\x12(\n" +
+	"\asurname\x18\x06 \x01(\tB\t\xfaB\x06r\x04\x10\x02\x182H\x03R\asurname\x88\x01\x01\x12;\n" +
+	"\vphoneNumber\x18\a \x01(\tB\x19\xfaB\x16r\x142\x12^\\+?[1-9]\\d{1,14}$R\vphoneNumber\x12\x1d\n" +
+	"\x05email\x18\b \x01(\tB\a\xfaB\x04r\x02`\x01R\x05emailB\r\n" +
 	"\v_avatar_urlB\x0f\n" +
 	"\r_display_nameB\x06\n" +
-	"\x04_bioB\v\n" +
-	"\t_usernameB\n" +
+	"\x04_bioB\n" +
 	"\n" +
-	"\b_surnameB\x0e\n" +
-	"\f_phoneNumberB\b\n" +
-	"\x06_email\"\xa7\x01\n" +
+	"\b_surname\"\xa7\x01\n" +
 	"\x14UpdateProfileRequest\x12\x1f\n" +
 	"\x06userID\x18\x01 \x01(\x03B\a\xfaB\x04\"\x02 \x00R\x06userID\x121\n" +
 	"\aprofile\x18\x02 \x01(\v2\r.auth.ProfileB\b\xfaB\x05\x8a\x01\x02\x10\x01R\aprofile\x12;\n" +

@@ -180,6 +180,51 @@ func (m *Profile) validate(all bool) error {
 		errors = append(errors, err)
 	}
 
+	if l := utf8.RuneCountInString(m.GetUsername()); l < 3 || l > 30 {
+		err := ProfileValidationError{
+			field:  "Username",
+			reason: "value length must be between 3 and 30 runes, inclusive",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
+	if !_Profile_Username_Pattern.MatchString(m.GetUsername()) {
+		err := ProfileValidationError{
+			field:  "Username",
+			reason: "value does not match regex pattern \"^[a-zA-Z0-9_]+$\"",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
+	if !_Profile_PhoneNumber_Pattern.MatchString(m.GetPhoneNumber()) {
+		err := ProfileValidationError{
+			field:  "PhoneNumber",
+			reason: "value does not match regex pattern \"^\\\\+?[1-9]\\\\d{1,14}$\"",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
+	if err := m._validateEmail(m.GetEmail()); err != nil {
+		err = ProfileValidationError{
+			field:  "Email",
+			reason: "value must be a valid email address",
+			cause:  err,
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
 	if m.AvatarUrl != nil {
 
 		if uri, err := url.Parse(m.GetAvatarUrl()); err != nil {
@@ -235,69 +280,12 @@ func (m *Profile) validate(all bool) error {
 
 	}
 
-	if m.Username != nil {
-
-		if l := utf8.RuneCountInString(m.GetUsername()); l < 3 || l > 30 {
-			err := ProfileValidationError{
-				field:  "Username",
-				reason: "value length must be between 3 and 30 runes, inclusive",
-			}
-			if !all {
-				return err
-			}
-			errors = append(errors, err)
-		}
-
-		if !_Profile_Username_Pattern.MatchString(m.GetUsername()) {
-			err := ProfileValidationError{
-				field:  "Username",
-				reason: "value does not match regex pattern \"^[a-zA-Z0-9_]+$\"",
-			}
-			if !all {
-				return err
-			}
-			errors = append(errors, err)
-		}
-
-	}
-
 	if m.Surname != nil {
 
 		if l := utf8.RuneCountInString(m.GetSurname()); l < 2 || l > 50 {
 			err := ProfileValidationError{
 				field:  "Surname",
 				reason: "value length must be between 2 and 50 runes, inclusive",
-			}
-			if !all {
-				return err
-			}
-			errors = append(errors, err)
-		}
-
-	}
-
-	if m.PhoneNumber != nil {
-
-		if !_Profile_PhoneNumber_Pattern.MatchString(m.GetPhoneNumber()) {
-			err := ProfileValidationError{
-				field:  "PhoneNumber",
-				reason: "value does not match regex pattern \"^\\\\+?[1-9]\\\\d{1,14}$\"",
-			}
-			if !all {
-				return err
-			}
-			errors = append(errors, err)
-		}
-
-	}
-
-	if m.Email != nil {
-
-		if err := m._validateEmail(m.GetEmail()); err != nil {
-			err = ProfileValidationError{
-				field:  "Email",
-				reason: "value must be a valid email address",
-				cause:  err,
 			}
 			if !all {
 				return err
