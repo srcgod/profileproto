@@ -70,13 +70,13 @@ func (x *GetProfileRequest) GetUserID() int64 {
 type Profile struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
 	UserID        int64                  `protobuf:"varint,1,opt,name=userID,proto3" json:"userID,omitempty"`
-	AvatarUrl     string                 `protobuf:"bytes,2,opt,name=avatar_url,json=avatarUrl,proto3" json:"avatar_url,omitempty"`
-	DisplayName   string                 `protobuf:"bytes,3,opt,name=display_name,json=displayName,proto3" json:"display_name,omitempty"`
-	Bio           string                 `protobuf:"bytes,4,opt,name=bio,proto3" json:"bio,omitempty"`
-	Username      string                 `protobuf:"bytes,5,opt,name=username,proto3" json:"username,omitempty"`
-	Surname       string                 `protobuf:"bytes,6,opt,name=surname,proto3" json:"surname,omitempty"`
-	PhoneNumber   string                 `protobuf:"bytes,7,opt,name=phoneNumber,proto3" json:"phoneNumber,omitempty"`
-	Email         string                 `protobuf:"bytes,8,opt,name=email,proto3" json:"email,omitempty"`
+	AvatarUrl     *string                `protobuf:"bytes,2,opt,name=avatar_url,json=avatarUrl,proto3,oneof" json:"avatar_url,omitempty"`
+	DisplayName   *string                `protobuf:"bytes,3,opt,name=display_name,json=displayName,proto3,oneof" json:"display_name,omitempty"`
+	Bio           *string                `protobuf:"bytes,4,opt,name=bio,proto3,oneof" json:"bio,omitempty"`
+	Username      *string                `protobuf:"bytes,5,opt,name=username,proto3,oneof" json:"username,omitempty"`
+	Surname       *string                `protobuf:"bytes,6,opt,name=surname,proto3,oneof" json:"surname,omitempty"`
+	PhoneNumber   *string                `protobuf:"bytes,7,opt,name=phoneNumber,proto3,oneof" json:"phoneNumber,omitempty"`
+	Email         *string                `protobuf:"bytes,8,opt,name=email,proto3,oneof" json:"email,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -119,50 +119,50 @@ func (x *Profile) GetUserID() int64 {
 }
 
 func (x *Profile) GetAvatarUrl() string {
-	if x != nil {
-		return x.AvatarUrl
+	if x != nil && x.AvatarUrl != nil {
+		return *x.AvatarUrl
 	}
 	return ""
 }
 
 func (x *Profile) GetDisplayName() string {
-	if x != nil {
-		return x.DisplayName
+	if x != nil && x.DisplayName != nil {
+		return *x.DisplayName
 	}
 	return ""
 }
 
 func (x *Profile) GetBio() string {
-	if x != nil {
-		return x.Bio
+	if x != nil && x.Bio != nil {
+		return *x.Bio
 	}
 	return ""
 }
 
 func (x *Profile) GetUsername() string {
-	if x != nil {
-		return x.Username
+	if x != nil && x.Username != nil {
+		return *x.Username
 	}
 	return ""
 }
 
 func (x *Profile) GetSurname() string {
-	if x != nil {
-		return x.Surname
+	if x != nil && x.Surname != nil {
+		return *x.Surname
 	}
 	return ""
 }
 
 func (x *Profile) GetPhoneNumber() string {
-	if x != nil {
-		return x.PhoneNumber
+	if x != nil && x.PhoneNumber != nil {
+		return *x.PhoneNumber
 	}
 	return ""
 }
 
 func (x *Profile) GetEmail() string {
-	if x != nil {
-		return x.Email
+	if x != nil && x.Email != nil {
+		return *x.Email
 	}
 	return ""
 }
@@ -277,17 +277,25 @@ const file_profile_proto_rawDesc = "" +
 	"\n" +
 	"\rprofile.proto\x12\x04auth\x1a\x17validate/validate.proto\x1a google/protobuf/field_mask.proto\"4\n" +
 	"\x11GetProfileRequest\x12\x1f\n" +
-	"\x06userID\x18\x01 \x01(\x03B\a\xfaB\x04\"\x02 \x00R\x06userID\"\xd6\x02\n" +
+	"\x06userID\x18\x01 \x01(\x03B\a\xfaB\x04\"\x02 \x00R\x06userID\"\xd4\x03\n" +
 	"\aProfile\x12\x1f\n" +
-	"\x06userID\x18\x01 \x01(\x03B\a\xfaB\x04\"\x02 \x00R\x06userID\x12'\n" +
+	"\x06userID\x18\x01 \x01(\x03B\a\xfaB\x04\"\x02 \x00R\x06userID\x12,\n" +
 	"\n" +
-	"avatar_url\x18\x02 \x01(\tB\b\xfaB\x05r\x03\x88\x01\x01R\tavatarUrl\x12,\n" +
-	"\fdisplay_name\x18\x03 \x01(\tB\t\xfaB\x06r\x04\x10\x03\x182R\vdisplayName\x12\x1a\n" +
-	"\x03bio\x18\x04 \x01(\tB\b\xfaB\x05r\x03\x18\xc8\x01R\x03bio\x126\n" +
-	"\busername\x18\x05 \x01(\tB\x1a\xfaB\x17r\x15\x10\x03\x18\x1e2\x0f^[a-zA-Z0-9_]+$R\busername\x12#\n" +
-	"\asurname\x18\x06 \x01(\tB\t\xfaB\x06r\x04\x10\x02\x182R\asurname\x12;\n" +
-	"\vphoneNumber\x18\a \x01(\tB\x19\xfaB\x16r\x142\x12^\\+?[1-9]\\d{1,14}$R\vphoneNumber\x12\x1d\n" +
-	"\x05email\x18\b \x01(\tB\a\xfaB\x04r\x02`\x01R\x05email\"\xa7\x01\n" +
+	"avatar_url\x18\x02 \x01(\tB\b\xfaB\x05r\x03\x88\x01\x01H\x00R\tavatarUrl\x88\x01\x01\x121\n" +
+	"\fdisplay_name\x18\x03 \x01(\tB\t\xfaB\x06r\x04\x10\x03\x182H\x01R\vdisplayName\x88\x01\x01\x12\x1f\n" +
+	"\x03bio\x18\x04 \x01(\tB\b\xfaB\x05r\x03\x18\xc8\x01H\x02R\x03bio\x88\x01\x01\x12;\n" +
+	"\busername\x18\x05 \x01(\tB\x1a\xfaB\x17r\x15\x10\x03\x18\x1e2\x0f^[a-zA-Z0-9_]+$H\x03R\busername\x88\x01\x01\x12(\n" +
+	"\asurname\x18\x06 \x01(\tB\t\xfaB\x06r\x04\x10\x02\x182H\x04R\asurname\x88\x01\x01\x12@\n" +
+	"\vphoneNumber\x18\a \x01(\tB\x19\xfaB\x16r\x142\x12^\\+?[1-9]\\d{1,14}$H\x05R\vphoneNumber\x88\x01\x01\x12\"\n" +
+	"\x05email\x18\b \x01(\tB\a\xfaB\x04r\x02`\x01H\x06R\x05email\x88\x01\x01B\r\n" +
+	"\v_avatar_urlB\x0f\n" +
+	"\r_display_nameB\x06\n" +
+	"\x04_bioB\v\n" +
+	"\t_usernameB\n" +
+	"\n" +
+	"\b_surnameB\x0e\n" +
+	"\f_phoneNumberB\b\n" +
+	"\x06_email\"\xa7\x01\n" +
 	"\x14UpdateProfileRequest\x12\x1f\n" +
 	"\x06userID\x18\x01 \x01(\x03B\a\xfaB\x04\"\x02 \x00R\x06userID\x121\n" +
 	"\aprofile\x18\x02 \x01(\v2\r.auth.ProfileB\b\xfaB\x05\x8a\x01\x02\x10\x01R\aprofile\x12;\n" +
@@ -339,6 +347,7 @@ func file_profile_proto_init() {
 	if File_profile_proto != nil {
 		return
 	}
+	file_profile_proto_msgTypes[1].OneofWrappers = []any{}
 	type x struct{}
 	out := protoimpl.TypeBuilder{
 		File: protoimpl.DescBuilder{
