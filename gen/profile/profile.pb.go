@@ -219,10 +219,110 @@ func (x *Profile) GetEmail() string {
 	return ""
 }
 
+type UpdateProfileFields struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	UserID        int64                  `protobuf:"varint,1,opt,name=userID,proto3" json:"userID,omitempty"`
+	AvatarUrl     *string                `protobuf:"bytes,2,opt,name=avatar_url,json=avatarUrl,proto3,oneof" json:"avatar_url,omitempty"`
+	DisplayName   *string                `protobuf:"bytes,3,opt,name=display_name,json=displayName,proto3,oneof" json:"display_name,omitempty"`
+	Bio           *string                `protobuf:"bytes,4,opt,name=bio,proto3,oneof" json:"bio,omitempty"`
+	Username      *string                `protobuf:"bytes,5,opt,name=username,proto3,oneof" json:"username,omitempty"`
+	Surname       *string                `protobuf:"bytes,6,opt,name=surname,proto3,oneof" json:"surname,omitempty"`
+	PhoneNumber   *string                `protobuf:"bytes,7,opt,name=phoneNumber,proto3,oneof" json:"phoneNumber,omitempty"`
+	Email         *string                `protobuf:"bytes,8,opt,name=email,proto3,oneof" json:"email,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *UpdateProfileFields) Reset() {
+	*x = UpdateProfileFields{}
+	mi := &file_profile_proto_msgTypes[3]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *UpdateProfileFields) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*UpdateProfileFields) ProtoMessage() {}
+
+func (x *UpdateProfileFields) ProtoReflect() protoreflect.Message {
+	mi := &file_profile_proto_msgTypes[3]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use UpdateProfileFields.ProtoReflect.Descriptor instead.
+func (*UpdateProfileFields) Descriptor() ([]byte, []int) {
+	return file_profile_proto_rawDescGZIP(), []int{3}
+}
+
+func (x *UpdateProfileFields) GetUserID() int64 {
+	if x != nil {
+		return x.UserID
+	}
+	return 0
+}
+
+func (x *UpdateProfileFields) GetAvatarUrl() string {
+	if x != nil && x.AvatarUrl != nil {
+		return *x.AvatarUrl
+	}
+	return ""
+}
+
+func (x *UpdateProfileFields) GetDisplayName() string {
+	if x != nil && x.DisplayName != nil {
+		return *x.DisplayName
+	}
+	return ""
+}
+
+func (x *UpdateProfileFields) GetBio() string {
+	if x != nil && x.Bio != nil {
+		return *x.Bio
+	}
+	return ""
+}
+
+func (x *UpdateProfileFields) GetUsername() string {
+	if x != nil && x.Username != nil {
+		return *x.Username
+	}
+	return ""
+}
+
+func (x *UpdateProfileFields) GetSurname() string {
+	if x != nil && x.Surname != nil {
+		return *x.Surname
+	}
+	return ""
+}
+
+func (x *UpdateProfileFields) GetPhoneNumber() string {
+	if x != nil && x.PhoneNumber != nil {
+		return *x.PhoneNumber
+	}
+	return ""
+}
+
+func (x *UpdateProfileFields) GetEmail() string {
+	if x != nil && x.Email != nil {
+		return *x.Email
+	}
+	return ""
+}
+
 type UpdateProfileRequest struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
 	UserID        int64                  `protobuf:"varint,1,opt,name=userID,proto3" json:"userID,omitempty"`
-	Profile       *Profile               `protobuf:"bytes,2,opt,name=profile,proto3" json:"profile,omitempty"`
+	Profile       *UpdateProfileFields   `protobuf:"bytes,2,opt,name=profile,proto3" json:"profile,omitempty"`
 	UpdateMask    *fieldmaskpb.FieldMask `protobuf:"bytes,3,opt,name=update_mask,json=updateMask,proto3" json:"update_mask,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
@@ -230,7 +330,7 @@ type UpdateProfileRequest struct {
 
 func (x *UpdateProfileRequest) Reset() {
 	*x = UpdateProfileRequest{}
-	mi := &file_profile_proto_msgTypes[3]
+	mi := &file_profile_proto_msgTypes[4]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -242,7 +342,7 @@ func (x *UpdateProfileRequest) String() string {
 func (*UpdateProfileRequest) ProtoMessage() {}
 
 func (x *UpdateProfileRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_profile_proto_msgTypes[3]
+	mi := &file_profile_proto_msgTypes[4]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -255,7 +355,7 @@ func (x *UpdateProfileRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use UpdateProfileRequest.ProtoReflect.Descriptor instead.
 func (*UpdateProfileRequest) Descriptor() ([]byte, []int) {
-	return file_profile_proto_rawDescGZIP(), []int{3}
+	return file_profile_proto_rawDescGZIP(), []int{4}
 }
 
 func (x *UpdateProfileRequest) GetUserID() int64 {
@@ -265,7 +365,7 @@ func (x *UpdateProfileRequest) GetUserID() int64 {
 	return 0
 }
 
-func (x *UpdateProfileRequest) GetProfile() *Profile {
+func (x *UpdateProfileRequest) GetProfile() *UpdateProfileFields {
 	if x != nil {
 		return x.Profile
 	}
@@ -282,13 +382,14 @@ func (x *UpdateProfileRequest) GetUpdateMask() *fieldmaskpb.FieldMask {
 type UpdateProfileResponse struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
 	IsSuccess     bool                   `protobuf:"varint,1,opt,name=isSuccess,proto3" json:"isSuccess,omitempty"`
+	Profile       *Profile               `protobuf:"bytes,2,opt,name=profile,proto3" json:"profile,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
 
 func (x *UpdateProfileResponse) Reset() {
 	*x = UpdateProfileResponse{}
-	mi := &file_profile_proto_msgTypes[4]
+	mi := &file_profile_proto_msgTypes[5]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -300,7 +401,7 @@ func (x *UpdateProfileResponse) String() string {
 func (*UpdateProfileResponse) ProtoMessage() {}
 
 func (x *UpdateProfileResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_profile_proto_msgTypes[4]
+	mi := &file_profile_proto_msgTypes[5]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -313,7 +414,7 @@ func (x *UpdateProfileResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use UpdateProfileResponse.ProtoReflect.Descriptor instead.
 func (*UpdateProfileResponse) Descriptor() ([]byte, []int) {
-	return file_profile_proto_rawDescGZIP(), []int{4}
+	return file_profile_proto_rawDescGZIP(), []int{5}
 }
 
 func (x *UpdateProfileResponse) GetIsSuccess() bool {
@@ -321,6 +422,13 @@ func (x *UpdateProfileResponse) GetIsSuccess() bool {
 		return x.IsSuccess
 	}
 	return false
+}
+
+func (x *UpdateProfileResponse) GetProfile() *Profile {
+	if x != nil {
+		return x.Profile
+	}
+	return nil
 }
 
 var File_profile_proto protoreflect.FileDescriptor
@@ -347,14 +455,33 @@ const file_profile_proto_rawDesc = "" +
 	"\r_display_nameB\x06\n" +
 	"\x04_bioB\n" +
 	"\n" +
-	"\b_surname\"\xaa\x01\n" +
+	"\b_surname\"\xd7\x03\n" +
+	"\x13UpdateProfileFields\x12\x16\n" +
+	"\x06userID\x18\x01 \x01(\x03R\x06userID\x12,\n" +
+	"\n" +
+	"avatar_url\x18\x02 \x01(\tB\b\xfaB\x05r\x03\x88\x01\x01H\x00R\tavatarUrl\x88\x01\x01\x121\n" +
+	"\fdisplay_name\x18\x03 \x01(\tB\t\xfaB\x06r\x04\x10\x03\x182H\x01R\vdisplayName\x88\x01\x01\x12\x1f\n" +
+	"\x03bio\x18\x04 \x01(\tB\b\xfaB\x05r\x03\x18\xc8\x01H\x02R\x03bio\x88\x01\x01\x12;\n" +
+	"\busername\x18\x05 \x01(\tB\x1a\xfaB\x17r\x15\x10\x03\x18\x1e2\x0f^[a-zA-Z0-9_]+$H\x03R\busername\x88\x01\x01\x12(\n" +
+	"\asurname\x18\x06 \x01(\tB\t\xfaB\x06r\x04\x10\x02\x182H\x04R\asurname\x88\x01\x01\x12@\n" +
+	"\vphoneNumber\x18\a \x01(\tB\x19\xfaB\x16r\x142\x12^\\+?[1-9]\\d{1,14}$H\x05R\vphoneNumber\x88\x01\x01\x12\"\n" +
+	"\x05email\x18\b \x01(\tB\a\xfaB\x04r\x02`\x01H\x06R\x05email\x88\x01\x01B\r\n" +
+	"\v_avatar_urlB\x0f\n" +
+	"\r_display_nameB\x06\n" +
+	"\x04_bioB\v\n" +
+	"\t_usernameB\n" +
+	"\n" +
+	"\b_surnameB\x0e\n" +
+	"\f_phoneNumberB\b\n" +
+	"\x06_email\"\xb6\x01\n" +
 	"\x14UpdateProfileRequest\x12\x1f\n" +
-	"\x06userID\x18\x01 \x01(\x03B\a\xfaB\x04\"\x02 \x00R\x06userID\x124\n" +
-	"\aprofile\x18\x02 \x01(\v2\x10.profile.ProfileB\b\xfaB\x05\x8a\x01\x02\x10\x01R\aprofile\x12;\n" +
+	"\x06userID\x18\x01 \x01(\x03B\a\xfaB\x04\"\x02 \x00R\x06userID\x12@\n" +
+	"\aprofile\x18\x02 \x01(\v2\x1c.profile.UpdateProfileFieldsB\b\xfaB\x05\x8a\x01\x02\x10\x01R\aprofile\x12;\n" +
 	"\vupdate_mask\x18\x03 \x01(\v2\x1a.google.protobuf.FieldMaskR\n" +
-	"updateMask\"5\n" +
+	"updateMask\"a\n" +
 	"\x15UpdateProfileResponse\x12\x1c\n" +
-	"\tisSuccess\x18\x01 \x01(\bR\tisSuccess2\xa7\x01\n" +
+	"\tisSuccess\x18\x01 \x01(\bR\tisSuccess\x12*\n" +
+	"\aprofile\x18\x02 \x01(\v2\x10.profile.ProfileR\aprofile2\xa7\x01\n" +
 	"\x0eProfileService\x12E\n" +
 	"\n" +
 	"GetProfile\x12\x1a.profile.GetProfileRequest\x1a\x1b.profile.GetProfileResponse\x12N\n" +
@@ -372,28 +499,30 @@ func file_profile_proto_rawDescGZIP() []byte {
 	return file_profile_proto_rawDescData
 }
 
-var file_profile_proto_msgTypes = make([]protoimpl.MessageInfo, 5)
+var file_profile_proto_msgTypes = make([]protoimpl.MessageInfo, 6)
 var file_profile_proto_goTypes = []any{
 	(*GetProfileRequest)(nil),     // 0: profile.GetProfileRequest
 	(*GetProfileResponse)(nil),    // 1: profile.GetProfileResponse
 	(*Profile)(nil),               // 2: profile.Profile
-	(*UpdateProfileRequest)(nil),  // 3: profile.UpdateProfileRequest
-	(*UpdateProfileResponse)(nil), // 4: profile.UpdateProfileResponse
-	(*fieldmaskpb.FieldMask)(nil), // 5: google.protobuf.FieldMask
+	(*UpdateProfileFields)(nil),   // 3: profile.UpdateProfileFields
+	(*UpdateProfileRequest)(nil),  // 4: profile.UpdateProfileRequest
+	(*UpdateProfileResponse)(nil), // 5: profile.UpdateProfileResponse
+	(*fieldmaskpb.FieldMask)(nil), // 6: google.protobuf.FieldMask
 }
 var file_profile_proto_depIdxs = []int32{
 	2, // 0: profile.GetProfileResponse.profile:type_name -> profile.Profile
-	2, // 1: profile.UpdateProfileRequest.profile:type_name -> profile.Profile
-	5, // 2: profile.UpdateProfileRequest.update_mask:type_name -> google.protobuf.FieldMask
-	0, // 3: profile.ProfileService.GetProfile:input_type -> profile.GetProfileRequest
-	3, // 4: profile.ProfileService.UpdateProfile:input_type -> profile.UpdateProfileRequest
-	1, // 5: profile.ProfileService.GetProfile:output_type -> profile.GetProfileResponse
-	4, // 6: profile.ProfileService.UpdateProfile:output_type -> profile.UpdateProfileResponse
-	5, // [5:7] is the sub-list for method output_type
-	3, // [3:5] is the sub-list for method input_type
-	3, // [3:3] is the sub-list for extension type_name
-	3, // [3:3] is the sub-list for extension extendee
-	0, // [0:3] is the sub-list for field type_name
+	3, // 1: profile.UpdateProfileRequest.profile:type_name -> profile.UpdateProfileFields
+	6, // 2: profile.UpdateProfileRequest.update_mask:type_name -> google.protobuf.FieldMask
+	2, // 3: profile.UpdateProfileResponse.profile:type_name -> profile.Profile
+	0, // 4: profile.ProfileService.GetProfile:input_type -> profile.GetProfileRequest
+	4, // 5: profile.ProfileService.UpdateProfile:input_type -> profile.UpdateProfileRequest
+	1, // 6: profile.ProfileService.GetProfile:output_type -> profile.GetProfileResponse
+	5, // 7: profile.ProfileService.UpdateProfile:output_type -> profile.UpdateProfileResponse
+	6, // [6:8] is the sub-list for method output_type
+	4, // [4:6] is the sub-list for method input_type
+	4, // [4:4] is the sub-list for extension type_name
+	4, // [4:4] is the sub-list for extension extendee
+	0, // [0:4] is the sub-list for field type_name
 }
 
 func init() { file_profile_proto_init() }
@@ -402,13 +531,14 @@ func file_profile_proto_init() {
 		return
 	}
 	file_profile_proto_msgTypes[2].OneofWrappers = []any{}
+	file_profile_proto_msgTypes[3].OneofWrappers = []any{}
 	type x struct{}
 	out := protoimpl.TypeBuilder{
 		File: protoimpl.DescBuilder{
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: unsafe.Slice(unsafe.StringData(file_profile_proto_rawDesc), len(file_profile_proto_rawDesc)),
 			NumEnums:      0,
-			NumMessages:   5,
+			NumMessages:   6,
 			NumExtensions: 0,
 			NumServices:   1,
 		},

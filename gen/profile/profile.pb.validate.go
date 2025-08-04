@@ -550,6 +550,291 @@ var _Profile_Username_Pattern = regexp.MustCompile("^[a-zA-Z0-9_]+$")
 
 var _Profile_PhoneNumber_Pattern = regexp.MustCompile("^\\+?[1-9]\\d{1,14}$")
 
+// Validate checks the field values on UpdateProfileFields with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the first error encountered is returned, or nil if there are no violations.
+func (m *UpdateProfileFields) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on UpdateProfileFields with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// UpdateProfileFieldsMultiError, or nil if none found.
+func (m *UpdateProfileFields) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *UpdateProfileFields) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	// no validation rules for UserID
+
+	if m.AvatarUrl != nil {
+
+		if uri, err := url.Parse(m.GetAvatarUrl()); err != nil {
+			err = UpdateProfileFieldsValidationError{
+				field:  "AvatarUrl",
+				reason: "value must be a valid URI",
+				cause:  err,
+			}
+			if !all {
+				return err
+			}
+			errors = append(errors, err)
+		} else if !uri.IsAbs() {
+			err := UpdateProfileFieldsValidationError{
+				field:  "AvatarUrl",
+				reason: "value must be absolute",
+			}
+			if !all {
+				return err
+			}
+			errors = append(errors, err)
+		}
+
+	}
+
+	if m.DisplayName != nil {
+
+		if l := utf8.RuneCountInString(m.GetDisplayName()); l < 3 || l > 50 {
+			err := UpdateProfileFieldsValidationError{
+				field:  "DisplayName",
+				reason: "value length must be between 3 and 50 runes, inclusive",
+			}
+			if !all {
+				return err
+			}
+			errors = append(errors, err)
+		}
+
+	}
+
+	if m.Bio != nil {
+
+		if utf8.RuneCountInString(m.GetBio()) > 200 {
+			err := UpdateProfileFieldsValidationError{
+				field:  "Bio",
+				reason: "value length must be at most 200 runes",
+			}
+			if !all {
+				return err
+			}
+			errors = append(errors, err)
+		}
+
+	}
+
+	if m.Username != nil {
+
+		if l := utf8.RuneCountInString(m.GetUsername()); l < 3 || l > 30 {
+			err := UpdateProfileFieldsValidationError{
+				field:  "Username",
+				reason: "value length must be between 3 and 30 runes, inclusive",
+			}
+			if !all {
+				return err
+			}
+			errors = append(errors, err)
+		}
+
+		if !_UpdateProfileFields_Username_Pattern.MatchString(m.GetUsername()) {
+			err := UpdateProfileFieldsValidationError{
+				field:  "Username",
+				reason: "value does not match regex pattern \"^[a-zA-Z0-9_]+$\"",
+			}
+			if !all {
+				return err
+			}
+			errors = append(errors, err)
+		}
+
+	}
+
+	if m.Surname != nil {
+
+		if l := utf8.RuneCountInString(m.GetSurname()); l < 2 || l > 50 {
+			err := UpdateProfileFieldsValidationError{
+				field:  "Surname",
+				reason: "value length must be between 2 and 50 runes, inclusive",
+			}
+			if !all {
+				return err
+			}
+			errors = append(errors, err)
+		}
+
+	}
+
+	if m.PhoneNumber != nil {
+
+		if !_UpdateProfileFields_PhoneNumber_Pattern.MatchString(m.GetPhoneNumber()) {
+			err := UpdateProfileFieldsValidationError{
+				field:  "PhoneNumber",
+				reason: "value does not match regex pattern \"^\\\\+?[1-9]\\\\d{1,14}$\"",
+			}
+			if !all {
+				return err
+			}
+			errors = append(errors, err)
+		}
+
+	}
+
+	if m.Email != nil {
+
+		if err := m._validateEmail(m.GetEmail()); err != nil {
+			err = UpdateProfileFieldsValidationError{
+				field:  "Email",
+				reason: "value must be a valid email address",
+				cause:  err,
+			}
+			if !all {
+				return err
+			}
+			errors = append(errors, err)
+		}
+
+	}
+
+	if len(errors) > 0 {
+		return UpdateProfileFieldsMultiError(errors)
+	}
+
+	return nil
+}
+
+func (m *UpdateProfileFields) _validateHostname(host string) error {
+	s := strings.ToLower(strings.TrimSuffix(host, "."))
+
+	if len(host) > 253 {
+		return errors.New("hostname cannot exceed 253 characters")
+	}
+
+	for _, part := range strings.Split(s, ".") {
+		if l := len(part); l == 0 || l > 63 {
+			return errors.New("hostname part must be non-empty and cannot exceed 63 characters")
+		}
+
+		if part[0] == '-' {
+			return errors.New("hostname parts cannot begin with hyphens")
+		}
+
+		if part[len(part)-1] == '-' {
+			return errors.New("hostname parts cannot end with hyphens")
+		}
+
+		for _, r := range part {
+			if (r < 'a' || r > 'z') && (r < '0' || r > '9') && r != '-' {
+				return fmt.Errorf("hostname parts can only contain alphanumeric characters or hyphens, got %q", string(r))
+			}
+		}
+	}
+
+	return nil
+}
+
+func (m *UpdateProfileFields) _validateEmail(addr string) error {
+	a, err := mail.ParseAddress(addr)
+	if err != nil {
+		return err
+	}
+	addr = a.Address
+
+	if len(addr) > 254 {
+		return errors.New("email addresses cannot exceed 254 characters")
+	}
+
+	parts := strings.SplitN(addr, "@", 2)
+
+	if len(parts[0]) > 64 {
+		return errors.New("email address local phrase cannot exceed 64 characters")
+	}
+
+	return m._validateHostname(parts[1])
+}
+
+// UpdateProfileFieldsMultiError is an error wrapping multiple validation
+// errors returned by UpdateProfileFields.ValidateAll() if the designated
+// constraints aren't met.
+type UpdateProfileFieldsMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m UpdateProfileFieldsMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m UpdateProfileFieldsMultiError) AllErrors() []error { return m }
+
+// UpdateProfileFieldsValidationError is the validation error returned by
+// UpdateProfileFields.Validate if the designated constraints aren't met.
+type UpdateProfileFieldsValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e UpdateProfileFieldsValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e UpdateProfileFieldsValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e UpdateProfileFieldsValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e UpdateProfileFieldsValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e UpdateProfileFieldsValidationError) ErrorName() string {
+	return "UpdateProfileFieldsValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e UpdateProfileFieldsValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sUpdateProfileFields.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = UpdateProfileFieldsValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = UpdateProfileFieldsValidationError{}
+
+var _UpdateProfileFields_Username_Pattern = regexp.MustCompile("^[a-zA-Z0-9_]+$")
+
+var _UpdateProfileFields_PhoneNumber_Pattern = regexp.MustCompile("^\\+?[1-9]\\d{1,14}$")
+
 // Validate checks the field values on UpdateProfileRequest with the rules
 // defined in the proto definition for this message. If any rules are
 // violated, the first error encountered is returned, or nil if there are no violations.
@@ -755,6 +1040,35 @@ func (m *UpdateProfileResponse) validate(all bool) error {
 	var errors []error
 
 	// no validation rules for IsSuccess
+
+	if all {
+		switch v := interface{}(m.GetProfile()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, UpdateProfileResponseValidationError{
+					field:  "Profile",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, UpdateProfileResponseValidationError{
+					field:  "Profile",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetProfile()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return UpdateProfileResponseValidationError{
+				field:  "Profile",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
 
 	if len(errors) > 0 {
 		return UpdateProfileResponseMultiError(errors)
