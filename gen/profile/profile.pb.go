@@ -69,15 +69,8 @@ func (x *GetProfileRequest) GetUserID() int64 {
 
 type GetProfileResponse struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
-	ID            int64                  `protobuf:"varint,9,opt,name=ID,proto3" json:"ID,omitempty"`
-	UserID        int64                  `protobuf:"varint,1,opt,name=userID,proto3" json:"userID,omitempty"`
-	AvatarUrl     *string                `protobuf:"bytes,2,opt,name=avatar_url,json=avatarUrl,proto3,oneof" json:"avatar_url,omitempty"`
-	DisplayName   *string                `protobuf:"bytes,3,opt,name=display_name,json=displayName,proto3,oneof" json:"display_name,omitempty"`
-	Bio           *string                `protobuf:"bytes,4,opt,name=bio,proto3,oneof" json:"bio,omitempty"`
-	Username      string                 `protobuf:"bytes,5,opt,name=username,proto3" json:"username,omitempty"`
-	Surname       *string                `protobuf:"bytes,6,opt,name=surname,proto3,oneof" json:"surname,omitempty"`
-	PhoneNumber   string                 `protobuf:"bytes,7,opt,name=phoneNumber,proto3" json:"phoneNumber,omitempty"`
-	Email         string                 `protobuf:"bytes,8,opt,name=email,proto3" json:"email,omitempty"`
+	ID            int64                  `protobuf:"varint,1,opt,name=ID,proto3" json:"ID,omitempty"`
+	Profile       *Profile               `protobuf:"bytes,2,opt,name=profile,proto3" json:"profile,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -119,60 +112,11 @@ func (x *GetProfileResponse) GetID() int64 {
 	return 0
 }
 
-func (x *GetProfileResponse) GetUserID() int64 {
+func (x *GetProfileResponse) GetProfile() *Profile {
 	if x != nil {
-		return x.UserID
+		return x.Profile
 	}
-	return 0
-}
-
-func (x *GetProfileResponse) GetAvatarUrl() string {
-	if x != nil && x.AvatarUrl != nil {
-		return *x.AvatarUrl
-	}
-	return ""
-}
-
-func (x *GetProfileResponse) GetDisplayName() string {
-	if x != nil && x.DisplayName != nil {
-		return *x.DisplayName
-	}
-	return ""
-}
-
-func (x *GetProfileResponse) GetBio() string {
-	if x != nil && x.Bio != nil {
-		return *x.Bio
-	}
-	return ""
-}
-
-func (x *GetProfileResponse) GetUsername() string {
-	if x != nil {
-		return x.Username
-	}
-	return ""
-}
-
-func (x *GetProfileResponse) GetSurname() string {
-	if x != nil && x.Surname != nil {
-		return *x.Surname
-	}
-	return ""
-}
-
-func (x *GetProfileResponse) GetPhoneNumber() string {
-	if x != nil {
-		return x.PhoneNumber
-	}
-	return ""
-}
-
-func (x *GetProfileResponse) GetEmail() string {
-	if x != nil {
-		return x.Email
-	}
-	return ""
+	return nil
 }
 
 type Profile struct {
@@ -383,27 +327,14 @@ var File_profile_proto protoreflect.FileDescriptor
 
 const file_profile_proto_rawDesc = "" +
 	"\n" +
-	"\rprofile.proto\x12\x04auth\x1a\x17validate/validate.proto\x1a google/protobuf/field_mask.proto\"4\n" +
+	"\rprofile.proto\x12\aprofile\x1a\x17validate/validate.proto\x1a google/protobuf/field_mask.proto\"4\n" +
 	"\x11GetProfileRequest\x12\x1f\n" +
-	"\x06userID\x18\x01 \x01(\x03B\a\xfaB\x04\"\x02 \x00R\x06userID\"\xc6\x02\n" +
+	"\x06userID\x18\x01 \x01(\x03B\a\xfaB\x04\"\x02 \x00R\x06userID\"P\n" +
 	"\x12GetProfileResponse\x12\x0e\n" +
-	"\x02ID\x18\t \x01(\x03R\x02ID\x12\x16\n" +
-	"\x06userID\x18\x01 \x01(\x03R\x06userID\x12\"\n" +
-	"\n" +
-	"avatar_url\x18\x02 \x01(\tH\x00R\tavatarUrl\x88\x01\x01\x12&\n" +
-	"\fdisplay_name\x18\x03 \x01(\tH\x01R\vdisplayName\x88\x01\x01\x12\x15\n" +
-	"\x03bio\x18\x04 \x01(\tH\x02R\x03bio\x88\x01\x01\x12\x1a\n" +
-	"\busername\x18\x05 \x01(\tR\busername\x12\x1d\n" +
-	"\asurname\x18\x06 \x01(\tH\x03R\asurname\x88\x01\x01\x12 \n" +
-	"\vphoneNumber\x18\a \x01(\tR\vphoneNumber\x12\x14\n" +
-	"\x05email\x18\b \x01(\tR\x05emailB\r\n" +
-	"\v_avatar_urlB\x0f\n" +
-	"\r_display_nameB\x06\n" +
-	"\x04_bioB\n" +
-	"\n" +
-	"\b_surname\"\x9e\x03\n" +
-	"\aProfile\x12\x1f\n" +
-	"\x06userID\x18\x01 \x01(\x03B\a\xfaB\x04\"\x02 \x00R\x06userID\x12,\n" +
+	"\x02ID\x18\x01 \x01(\x03R\x02ID\x12*\n" +
+	"\aprofile\x18\x02 \x01(\v2\x10.profile.ProfileR\aprofile\"\x95\x03\n" +
+	"\aProfile\x12\x16\n" +
+	"\x06userID\x18\x01 \x01(\x03R\x06userID\x12,\n" +
 	"\n" +
 	"avatar_url\x18\x02 \x01(\tB\b\xfaB\x05r\x03\x88\x01\x01H\x00R\tavatarUrl\x88\x01\x01\x121\n" +
 	"\fdisplay_name\x18\x03 \x01(\tB\t\xfaB\x06r\x04\x10\x03\x182H\x01R\vdisplayName\x88\x01\x01\x12\x1f\n" +
@@ -416,18 +347,18 @@ const file_profile_proto_rawDesc = "" +
 	"\r_display_nameB\x06\n" +
 	"\x04_bioB\n" +
 	"\n" +
-	"\b_surname\"\xa7\x01\n" +
+	"\b_surname\"\xaa\x01\n" +
 	"\x14UpdateProfileRequest\x12\x1f\n" +
-	"\x06userID\x18\x01 \x01(\x03B\a\xfaB\x04\"\x02 \x00R\x06userID\x121\n" +
-	"\aprofile\x18\x02 \x01(\v2\r.auth.ProfileB\b\xfaB\x05\x8a\x01\x02\x10\x01R\aprofile\x12;\n" +
+	"\x06userID\x18\x01 \x01(\x03B\a\xfaB\x04\"\x02 \x00R\x06userID\x124\n" +
+	"\aprofile\x18\x02 \x01(\v2\x10.profile.ProfileB\b\xfaB\x05\x8a\x01\x02\x10\x01R\aprofile\x12;\n" +
 	"\vupdate_mask\x18\x03 \x01(\v2\x1a.google.protobuf.FieldMaskR\n" +
 	"updateMask\"5\n" +
 	"\x15UpdateProfileResponse\x12\x1c\n" +
-	"\tisSuccess\x18\x01 \x01(\bR\tisSuccess2\x9b\x01\n" +
-	"\x0eProfileService\x12?\n" +
+	"\tisSuccess\x18\x01 \x01(\bR\tisSuccess2\xa7\x01\n" +
+	"\x0eProfileService\x12E\n" +
 	"\n" +
-	"GetProfile\x12\x17.auth.GetProfileRequest\x1a\x18.auth.GetProfileResponse\x12H\n" +
-	"\rUpdateProfile\x12\x1a.auth.UpdateProfileRequest\x1a\x1b.auth.UpdateProfileResponseB\x1dZ\x1boneway/profile/v1;profilev1b\x06proto3"
+	"GetProfile\x12\x1a.profile.GetProfileRequest\x1a\x1b.profile.GetProfileResponse\x12N\n" +
+	"\rUpdateProfile\x12\x1d.profile.UpdateProfileRequest\x1a\x1e.profile.UpdateProfileResponseB\x1dZ\x1boneway/profile/v1;profilev1b\x06proto3"
 
 var (
 	file_profile_proto_rawDescOnce sync.Once
@@ -443,25 +374,26 @@ func file_profile_proto_rawDescGZIP() []byte {
 
 var file_profile_proto_msgTypes = make([]protoimpl.MessageInfo, 5)
 var file_profile_proto_goTypes = []any{
-	(*GetProfileRequest)(nil),     // 0: auth.GetProfileRequest
-	(*GetProfileResponse)(nil),    // 1: auth.GetProfileResponse
-	(*Profile)(nil),               // 2: auth.Profile
-	(*UpdateProfileRequest)(nil),  // 3: auth.UpdateProfileRequest
-	(*UpdateProfileResponse)(nil), // 4: auth.UpdateProfileResponse
+	(*GetProfileRequest)(nil),     // 0: profile.GetProfileRequest
+	(*GetProfileResponse)(nil),    // 1: profile.GetProfileResponse
+	(*Profile)(nil),               // 2: profile.Profile
+	(*UpdateProfileRequest)(nil),  // 3: profile.UpdateProfileRequest
+	(*UpdateProfileResponse)(nil), // 4: profile.UpdateProfileResponse
 	(*fieldmaskpb.FieldMask)(nil), // 5: google.protobuf.FieldMask
 }
 var file_profile_proto_depIdxs = []int32{
-	2, // 0: auth.UpdateProfileRequest.profile:type_name -> auth.Profile
-	5, // 1: auth.UpdateProfileRequest.update_mask:type_name -> google.protobuf.FieldMask
-	0, // 2: auth.ProfileService.GetProfile:input_type -> auth.GetProfileRequest
-	3, // 3: auth.ProfileService.UpdateProfile:input_type -> auth.UpdateProfileRequest
-	1, // 4: auth.ProfileService.GetProfile:output_type -> auth.GetProfileResponse
-	4, // 5: auth.ProfileService.UpdateProfile:output_type -> auth.UpdateProfileResponse
-	4, // [4:6] is the sub-list for method output_type
-	2, // [2:4] is the sub-list for method input_type
-	2, // [2:2] is the sub-list for extension type_name
-	2, // [2:2] is the sub-list for extension extendee
-	0, // [0:2] is the sub-list for field type_name
+	2, // 0: profile.GetProfileResponse.profile:type_name -> profile.Profile
+	2, // 1: profile.UpdateProfileRequest.profile:type_name -> profile.Profile
+	5, // 2: profile.UpdateProfileRequest.update_mask:type_name -> google.protobuf.FieldMask
+	0, // 3: profile.ProfileService.GetProfile:input_type -> profile.GetProfileRequest
+	3, // 4: profile.ProfileService.UpdateProfile:input_type -> profile.UpdateProfileRequest
+	1, // 5: profile.ProfileService.GetProfile:output_type -> profile.GetProfileResponse
+	4, // 6: profile.ProfileService.UpdateProfile:output_type -> profile.UpdateProfileResponse
+	5, // [5:7] is the sub-list for method output_type
+	3, // [3:5] is the sub-list for method input_type
+	3, // [3:3] is the sub-list for extension type_name
+	3, // [3:3] is the sub-list for extension extendee
+	0, // [0:3] is the sub-list for field type_name
 }
 
 func init() { file_profile_proto_init() }
@@ -469,7 +401,6 @@ func file_profile_proto_init() {
 	if File_profile_proto != nil {
 		return
 	}
-	file_profile_proto_msgTypes[1].OneofWrappers = []any{}
 	file_profile_proto_msgTypes[2].OneofWrappers = []any{}
 	type x struct{}
 	out := protoimpl.TypeBuilder{

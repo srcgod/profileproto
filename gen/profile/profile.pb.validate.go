@@ -172,28 +172,33 @@ func (m *GetProfileResponse) validate(all bool) error {
 
 	// no validation rules for ID
 
-	// no validation rules for UserID
-
-	// no validation rules for Username
-
-	// no validation rules for PhoneNumber
-
-	// no validation rules for Email
-
-	if m.AvatarUrl != nil {
-		// no validation rules for AvatarUrl
-	}
-
-	if m.DisplayName != nil {
-		// no validation rules for DisplayName
-	}
-
-	if m.Bio != nil {
-		// no validation rules for Bio
-	}
-
-	if m.Surname != nil {
-		// no validation rules for Surname
+	if all {
+		switch v := interface{}(m.GetProfile()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, GetProfileResponseValidationError{
+					field:  "Profile",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, GetProfileResponseValidationError{
+					field:  "Profile",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetProfile()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return GetProfileResponseValidationError{
+				field:  "Profile",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
 	}
 
 	if len(errors) > 0 {
@@ -297,16 +302,7 @@ func (m *Profile) validate(all bool) error {
 
 	var errors []error
 
-	if m.GetUserID() <= 0 {
-		err := ProfileValidationError{
-			field:  "UserID",
-			reason: "value must be greater than 0",
-		}
-		if !all {
-			return err
-		}
-		errors = append(errors, err)
-	}
+	// no validation rules for UserID
 
 	if l := utf8.RuneCountInString(m.GetUsername()); l < 3 || l > 30 {
 		err := ProfileValidationError{
