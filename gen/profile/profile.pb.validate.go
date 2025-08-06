@@ -1149,3 +1149,222 @@ var _ interface {
 	Cause() error
 	ErrorName() string
 } = UpdateProfileResponseValidationError{}
+
+// Validate checks the field values on DeleteProfileRequest with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the first error encountered is returned, or nil if there are no violations.
+func (m *DeleteProfileRequest) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on DeleteProfileRequest with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// DeleteProfileRequestMultiError, or nil if none found.
+func (m *DeleteProfileRequest) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *DeleteProfileRequest) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	// no validation rules for ProfileID
+
+	if len(errors) > 0 {
+		return DeleteProfileRequestMultiError(errors)
+	}
+
+	return nil
+}
+
+// DeleteProfileRequestMultiError is an error wrapping multiple validation
+// errors returned by DeleteProfileRequest.ValidateAll() if the designated
+// constraints aren't met.
+type DeleteProfileRequestMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m DeleteProfileRequestMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m DeleteProfileRequestMultiError) AllErrors() []error { return m }
+
+// DeleteProfileRequestValidationError is the validation error returned by
+// DeleteProfileRequest.Validate if the designated constraints aren't met.
+type DeleteProfileRequestValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e DeleteProfileRequestValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e DeleteProfileRequestValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e DeleteProfileRequestValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e DeleteProfileRequestValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e DeleteProfileRequestValidationError) ErrorName() string {
+	return "DeleteProfileRequestValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e DeleteProfileRequestValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sDeleteProfileRequest.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = DeleteProfileRequestValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = DeleteProfileRequestValidationError{}
+
+// Validate checks the field values on DeleteProfileResponse with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the first error encountered is returned, or nil if there are no violations.
+func (m *DeleteProfileResponse) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on DeleteProfileResponse with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// DeleteProfileResponseMultiError, or nil if none found.
+func (m *DeleteProfileResponse) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *DeleteProfileResponse) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	// no validation rules for IsSuccess
+
+	if l := utf8.RuneCountInString(m.GetError()); l < 3 || l > 50 {
+		err := DeleteProfileResponseValidationError{
+			field:  "Error",
+			reason: "value length must be between 3 and 50 runes, inclusive",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
+	if len(errors) > 0 {
+		return DeleteProfileResponseMultiError(errors)
+	}
+
+	return nil
+}
+
+// DeleteProfileResponseMultiError is an error wrapping multiple validation
+// errors returned by DeleteProfileResponse.ValidateAll() if the designated
+// constraints aren't met.
+type DeleteProfileResponseMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m DeleteProfileResponseMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m DeleteProfileResponseMultiError) AllErrors() []error { return m }
+
+// DeleteProfileResponseValidationError is the validation error returned by
+// DeleteProfileResponse.Validate if the designated constraints aren't met.
+type DeleteProfileResponseValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e DeleteProfileResponseValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e DeleteProfileResponseValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e DeleteProfileResponseValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e DeleteProfileResponseValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e DeleteProfileResponseValidationError) ErrorName() string {
+	return "DeleteProfileResponseValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e DeleteProfileResponseValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sDeleteProfileResponse.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = DeleteProfileResponseValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = DeleteProfileResponseValidationError{}
