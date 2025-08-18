@@ -302,6 +302,8 @@ func (m *Profile) validate(all bool) error {
 
 	var errors []error
 
+	// no validation rules for ID
+
 	// no validation rules for UserID
 
 	if l := utf8.RuneCountInString(m.GetUsername()); l < 3 || l > 30 {
@@ -571,8 +573,6 @@ func (m *UpdateProfileFields) validate(all bool) error {
 	}
 
 	var errors []error
-
-	// no validation rules for UserID
 
 	if m.AvatarUrl != nil {
 

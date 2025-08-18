@@ -121,6 +121,7 @@ func (x *GetProfileResponse) GetProfile() *Profile {
 
 type Profile struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
+	ID            int64                  `protobuf:"varint,9,opt,name=ID,proto3" json:"ID,omitempty"`
 	UserID        int64                  `protobuf:"varint,1,opt,name=userID,proto3" json:"userID,omitempty"`
 	AvatarUrl     *string                `protobuf:"bytes,2,opt,name=avatar_url,json=avatarUrl,proto3,oneof" json:"avatar_url,omitempty"`
 	DisplayName   *string                `protobuf:"bytes,3,opt,name=display_name,json=displayName,proto3,oneof" json:"display_name,omitempty"`
@@ -161,6 +162,13 @@ func (x *Profile) ProtoReflect() protoreflect.Message {
 // Deprecated: Use Profile.ProtoReflect.Descriptor instead.
 func (*Profile) Descriptor() ([]byte, []int) {
 	return file_profile_proto_rawDescGZIP(), []int{2}
+}
+
+func (x *Profile) GetID() int64 {
+	if x != nil {
+		return x.ID
+	}
+	return 0
 }
 
 func (x *Profile) GetUserID() int64 {
@@ -221,7 +229,6 @@ func (x *Profile) GetEmail() string {
 
 type UpdateProfileFields struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
-	UserID        int64                  `protobuf:"varint,1,opt,name=userID,proto3" json:"userID,omitempty"`
 	AvatarUrl     *string                `protobuf:"bytes,2,opt,name=avatar_url,json=avatarUrl,proto3,oneof" json:"avatar_url,omitempty"`
 	DisplayName   *string                `protobuf:"bytes,3,opt,name=display_name,json=displayName,proto3,oneof" json:"display_name,omitempty"`
 	Bio           *string                `protobuf:"bytes,4,opt,name=bio,proto3,oneof" json:"bio,omitempty"`
@@ -261,13 +268,6 @@ func (x *UpdateProfileFields) ProtoReflect() protoreflect.Message {
 // Deprecated: Use UpdateProfileFields.ProtoReflect.Descriptor instead.
 func (*UpdateProfileFields) Descriptor() ([]byte, []int) {
 	return file_profile_proto_rawDescGZIP(), []int{3}
-}
-
-func (x *UpdateProfileFields) GetUserID() int64 {
-	if x != nil {
-		return x.UserID
-	}
-	return 0
 }
 
 func (x *UpdateProfileFields) GetAvatarUrl() string {
@@ -536,8 +536,9 @@ const file_profile_proto_rawDesc = "" +
 	"\x06userID\x18\x01 \x01(\x03B\a\xfaB\x04\"\x02 \x00R\x06userID\"P\n" +
 	"\x12GetProfileResponse\x12\x0e\n" +
 	"\x02ID\x18\x01 \x01(\x03R\x02ID\x12*\n" +
-	"\aprofile\x18\x02 \x01(\v2\x10.profile.ProfileR\aprofile\"\x95\x03\n" +
-	"\aProfile\x12\x16\n" +
+	"\aprofile\x18\x02 \x01(\v2\x10.profile.ProfileR\aprofile\"\xa5\x03\n" +
+	"\aProfile\x12\x0e\n" +
+	"\x02ID\x18\t \x01(\x03R\x02ID\x12\x16\n" +
 	"\x06userID\x18\x01 \x01(\x03R\x06userID\x12,\n" +
 	"\n" +
 	"avatar_url\x18\x02 \x01(\tB\b\xfaB\x05r\x03\x88\x01\x01H\x00R\tavatarUrl\x88\x01\x01\x121\n" +
@@ -551,9 +552,8 @@ const file_profile_proto_rawDesc = "" +
 	"\r_display_nameB\x06\n" +
 	"\x04_bioB\n" +
 	"\n" +
-	"\b_surname\"\xd7\x03\n" +
-	"\x13UpdateProfileFields\x12\x16\n" +
-	"\x06userID\x18\x01 \x01(\x03R\x06userID\x12,\n" +
+	"\b_surname\"\xbf\x03\n" +
+	"\x13UpdateProfileFields\x12,\n" +
 	"\n" +
 	"avatar_url\x18\x02 \x01(\tB\b\xfaB\x05r\x03\x88\x01\x01H\x00R\tavatarUrl\x88\x01\x01\x121\n" +
 	"\fdisplay_name\x18\x03 \x01(\tB\t\xfaB\x06r\x04\x10\x03\x182H\x01R\vdisplayName\x88\x01\x01\x12\x1f\n" +
