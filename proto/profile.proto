@@ -23,6 +23,7 @@ message GetProfileResponse {
 }
 
 message Profile {
+  int64 ID = 9;
   int64 userID = 1 ;
   optional string avatar_url = 2 [(validate.rules).string = {uri: true}];
   optional string display_name = 3 [(validate.rules).string = {min_len: 3, max_len: 50}];
