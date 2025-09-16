@@ -1,65 +1,88 @@
+
 syntax = "proto3";
 
 package profile;
 
-option go_package = "oneway/profile/v1;profilev1";
-import "validate/validate.proto";
 import "google/protobuf/field_mask.proto";
+import "validate/validate.proto";
 
+option go_package = "oneway/profile/v1;profilev1";
 
 service ProfileService {
   rpc GetProfile(GetProfileRequest) returns (GetProfileResponse);
   rpc UpdateProfile(UpdateProfileRequest) returns (UpdateProfileResponse);
   rpc DeleteProfile(DeleteProfileRequest) returns (DeleteProfileResponse);
+  rpc SearchProfile(SearchProfileRequest) returns (SearchProfileResponse);
 }
-
-message GetProfileRequest {
-  int64 userID = 1 [(validate.rules).int64 = {gt: 0}];
+message Filter {
+  string key = 1;
+  string value = 2;
 }
-
-message GetProfileResponse {
-  int64 ID = 1;
-  Profile profile = 2;
+message SearchProfileRequest {
+  string chars = 1 [ (validate.rules).string = {min_len : 3, max_len : 50} ];
+}
+message SearchProfileResponse {
+  repeated Profile profiles = 1;
 }
 
 message Profile {
-  int64 ID = 9;
-  int64 userID = 1 ;
-  optional string avatar_url = 2 [(validate.rules).string = {uri: true}];
-  optional string display_name = 3 [(validate.rules).string = {min_len: 3, max_len: 50}];
-  optional string bio = 4 [(validate.rules).string = {max_len: 200}];
-  string username = 5 [(validate.rules).string = {pattern: "^[a-zA-Z0-9_]+$", min_len: 3, max_len: 30}];
-  optional string surname = 6 [(validate.rules).string = {min_len: 2, max_len: 50}];
-  string phoneNumber = 7 [(validate.rules).string = {pattern: "^\\+?[1-9]\\d{1,14}$"}];
-  string email = 8 [(validate.rules).string = {email: true}];
+  int64 id = 9;
+  int64 user_id = 1;
+  optional string avatar_url = 2 [ (validate.rules).string = {uri : true} ];
+  optional string display_name = 3
+      [ (validate.rules).string = {min_len : 3, max_len : 50} ];
+  optional string bio = 4 [ (validate.rules).string = {max_len : 200} ];
+  string username = 5
+      [ (validate.rules).string =
+            {pattern : "^[a-zA-Z0-9_]+$", min_len : 3, max_len : 30} ];
+  optional string surname = 6
+      [ (validate.rules).string = {min_len : 2, max_len : 50} ];
+  string phone_number = 7
+      [ (validate.rules).string = {pattern : "^\\+?[1-9]\\d{1,14}$"} ];
+  string email = 8 [ (validate.rules).string = {email : true} ];
+}
+
+message GetProfileRequest {
+  int64 user_id = 1 [ (validate.rules).int64 = {gt : 0} ];
+}
+
+message GetProfileResponse {
+  int64 id = 1;
+  Profile profile = 2;
 }
 
 message UpdateProfileFields {
-  optional string avatar_url = 2 [(validate.rules).string = {uri: true}];
-  optional string display_name = 3 [(validate.rules).string = {min_len: 3, max_len: 50}];
-  optional string bio = 4 [(validate.rules).string = {max_len: 200}];
-  optional string username = 5 [(validate.rules).string = {pattern: "^[a-zA-Z0-9_]+$", min_len: 3, max_len: 30}];
-  optional string surname = 6 [(validate.rules).string = {min_len: 2, max_len: 50}];
-  optional string phoneNumber = 7 [(validate.rules).string = {pattern: "^\\+?[1-9]\\d{1,14}$"}];
-  optional string email = 8 [(validate.rules).string = {email: true}];
+  optional string avatar_url = 2 [ (validate.rules).string = {uri : true} ];
+  optional string display_name = 3
+      [ (validate.rules).string = {min_len : 3, max_len : 50} ];
+  optional string bio = 4 [ (validate.rules).string = {max_len : 200} ];
+  optional string username = 5
+      [ (validate.rules).string =
+            {pattern : "^[a-zA-Z0-9_]+$", min_len : 3, max_len : 30} ];
+  optional string surname = 6
+      [ (validate.rules).string = {min_len : 2, max_len : 50} ];
+  optional string phone_number = 7
+      [ (validate.rules).string = {pattern : "^\\+?[1-9]\\d{1,14}$"} ];
+  optional string email = 8 [ (validate.rules).string = {email : true} ];
 }
 
 message UpdateProfileRequest {
-  int64 userID = 1 [(validate.rules).int64 = {gt: 0}];
-  UpdateProfileFields profile = 2 [(validate.rules).message = {required: true}];
+  int64 user_id = 1 [ (validate.rules).int64 = {gt : 0} ];
+  UpdateProfileFields profile = 2
+      [ (validate.rules).message = {required : true} ];
   google.protobuf.FieldMask update_mask = 3;
 }
 
 message UpdateProfileResponse {
-  bool isSuccess = 1;
+  bool is_success = 1;
   Profile profile = 2;
 }
 
 message DeleteProfileRequest {
-  int64 profileID = 1;
+  int64 profile_id = 1;
 }
 
 message DeleteProfileResponse {
-  bool isSuccess = 1;
-  string error = 2 [(validate.rules).string = {min_len: 3, max_len: 50}];
+  bool is_success = 1;
+  string error = 2 [ (validate.rules).string = {min_len : 3, max_len : 50} ];
 }
