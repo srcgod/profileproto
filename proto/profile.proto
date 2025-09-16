@@ -18,6 +18,9 @@ message Filter {
   string key = 1;
   string value = 2;
 }
+
+message Empty {}
+
 message SearchProfileRequest {
   string chars = 1 [ (validate.rules).string = {min_len : 3, max_len : 50} ];
 }
