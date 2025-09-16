@@ -56,9 +56,27 @@ func (m *Filter) validate(all bool) error {
 
 	var errors []error
 
-	// no validation rules for Key
+	if l := utf8.RuneCountInString(m.GetKey()); l < 3 || l > 30 {
+		err := FilterValidationError{
+			field:  "Key",
+			reason: "value length must be between 3 and 30 runes, inclusive",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
 
-	// no validation rules for Value
+	if l := utf8.RuneCountInString(m.GetValue()); l < 3 || l > 30 {
+		err := FilterValidationError{
+			field:  "Value",
+			reason: "value length must be between 3 and 30 runes, inclusive",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
 
 	if len(errors) > 0 {
 		return FilterMultiError(errors)
@@ -266,6 +284,40 @@ func (m *SearchProfileRequest) validate(all bool) error {
 			return err
 		}
 		errors = append(errors, err)
+	}
+
+	for idx, item := range m.GetFilter() {
+		_, _ = idx, item
+
+		if all {
+			switch v := interface{}(item).(type) {
+			case interface{ ValidateAll() error }:
+				if err := v.ValidateAll(); err != nil {
+					errors = append(errors, SearchProfileRequestValidationError{
+						field:  fmt.Sprintf("Filter[%v]", idx),
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			case interface{ Validate() error }:
+				if err := v.Validate(); err != nil {
+					errors = append(errors, SearchProfileRequestValidationError{
+						field:  fmt.Sprintf("Filter[%v]", idx),
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			}
+		} else if v, ok := interface{}(item).(interface{ Validate() error }); ok {
+			if err := v.Validate(); err != nil {
+				return SearchProfileRequestValidationError{
+					field:  fmt.Sprintf("Filter[%v]", idx),
+					reason: "embedded message failed validation",
+					cause:  err,
+				}
+			}
+		}
+
 	}
 
 	if len(errors) > 0 {

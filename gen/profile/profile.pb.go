@@ -114,6 +114,7 @@ func (*Empty) Descriptor() ([]byte, []int) {
 type SearchProfileRequest struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
 	Chars         string                 `protobuf:"bytes,1,opt,name=chars,proto3" json:"chars,omitempty"`
+	Filter        []*Filter              `protobuf:"bytes,2,rep,name=filter,proto3" json:"filter,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -153,6 +154,13 @@ func (x *SearchProfileRequest) GetChars() string {
 		return x.Chars
 	}
 	return ""
+}
+
+func (x *SearchProfileRequest) GetFilter() []*Filter {
+	if x != nil {
+		return x.Filter
+	}
+	return nil
 }
 
 type SearchProfileResponse struct {
@@ -707,13 +715,14 @@ var File_profile_proto protoreflect.FileDescriptor
 
 const file_profile_proto_rawDesc = "" +
 	"\n" +
-	"\rprofile.proto\x12\aprofile\x1a google/protobuf/field_mask.proto\x1a\x17validate/validate.proto\"0\n" +
-	"\x06Filter\x12\x10\n" +
-	"\x03key\x18\x01 \x01(\tR\x03key\x12\x14\n" +
-	"\x05value\x18\x02 \x01(\tR\x05value\"\a\n" +
-	"\x05Empty\"7\n" +
+	"\rprofile.proto\x12\aprofile\x1a google/protobuf/field_mask.proto\x1a\x17validate/validate.proto\"F\n" +
+	"\x06Filter\x12\x1b\n" +
+	"\x03key\x18\x01 \x01(\tB\t\xfaB\x06r\x04\x10\x03\x18\x1eR\x03key\x12\x1f\n" +
+	"\x05value\x18\x02 \x01(\tB\t\xfaB\x06r\x04\x10\x03\x18\x1eR\x05value\"\a\n" +
+	"\x05Empty\"`\n" +
 	"\x14SearchProfileRequest\x12\x1f\n" +
-	"\x05chars\x18\x01 \x01(\tB\t\xfaB\x06r\x04\x10\x03\x182R\x05chars\"E\n" +
+	"\x05chars\x18\x01 \x01(\tB\t\xfaB\x06r\x04\x10\x03\x182R\x05chars\x12'\n" +
+	"\x06filter\x18\x02 \x03(\v2\x0f.profile.FilterR\x06filter\"E\n" +
 	"\x15SearchProfileResponse\x12,\n" +
 	"\bprofiles\x18\x01 \x03(\v2\x10.profile.ProfileR\bprofiles\"\xa7\x03\n" +
 	"\aProfile\x12\x0e\n" +
@@ -806,24 +815,25 @@ var file_profile_proto_goTypes = []any{
 	(*fieldmaskpb.FieldMask)(nil), // 12: google.protobuf.FieldMask
 }
 var file_profile_proto_depIdxs = []int32{
-	4,  // 0: profile.SearchProfileResponse.profiles:type_name -> profile.Profile
-	4,  // 1: profile.GetProfileResponse.profile:type_name -> profile.Profile
-	7,  // 2: profile.UpdateProfileRequest.profile:type_name -> profile.UpdateProfileFields
-	12, // 3: profile.UpdateProfileRequest.update_mask:type_name -> google.protobuf.FieldMask
-	4,  // 4: profile.UpdateProfileResponse.profile:type_name -> profile.Profile
-	5,  // 5: profile.ProfileService.GetProfile:input_type -> profile.GetProfileRequest
-	8,  // 6: profile.ProfileService.UpdateProfile:input_type -> profile.UpdateProfileRequest
-	10, // 7: profile.ProfileService.DeleteProfile:input_type -> profile.DeleteProfileRequest
-	2,  // 8: profile.ProfileService.SearchProfile:input_type -> profile.SearchProfileRequest
-	6,  // 9: profile.ProfileService.GetProfile:output_type -> profile.GetProfileResponse
-	9,  // 10: profile.ProfileService.UpdateProfile:output_type -> profile.UpdateProfileResponse
-	11, // 11: profile.ProfileService.DeleteProfile:output_type -> profile.DeleteProfileResponse
-	3,  // 12: profile.ProfileService.SearchProfile:output_type -> profile.SearchProfileResponse
-	9,  // [9:13] is the sub-list for method output_type
-	5,  // [5:9] is the sub-list for method input_type
-	5,  // [5:5] is the sub-list for extension type_name
-	5,  // [5:5] is the sub-list for extension extendee
-	0,  // [0:5] is the sub-list for field type_name
+	0,  // 0: profile.SearchProfileRequest.filter:type_name -> profile.Filter
+	4,  // 1: profile.SearchProfileResponse.profiles:type_name -> profile.Profile
+	4,  // 2: profile.GetProfileResponse.profile:type_name -> profile.Profile
+	7,  // 3: profile.UpdateProfileRequest.profile:type_name -> profile.UpdateProfileFields
+	12, // 4: profile.UpdateProfileRequest.update_mask:type_name -> google.protobuf.FieldMask
+	4,  // 5: profile.UpdateProfileResponse.profile:type_name -> profile.Profile
+	5,  // 6: profile.ProfileService.GetProfile:input_type -> profile.GetProfileRequest
+	8,  // 7: profile.ProfileService.UpdateProfile:input_type -> profile.UpdateProfileRequest
+	10, // 8: profile.ProfileService.DeleteProfile:input_type -> profile.DeleteProfileRequest
+	2,  // 9: profile.ProfileService.SearchProfile:input_type -> profile.SearchProfileRequest
+	6,  // 10: profile.ProfileService.GetProfile:output_type -> profile.GetProfileResponse
+	9,  // 11: profile.ProfileService.UpdateProfile:output_type -> profile.UpdateProfileResponse
+	11, // 12: profile.ProfileService.DeleteProfile:output_type -> profile.DeleteProfileResponse
+	3,  // 13: profile.ProfileService.SearchProfile:output_type -> profile.SearchProfileResponse
+	10, // [10:14] is the sub-list for method output_type
+	6,  // [6:10] is the sub-list for method input_type
+	6,  // [6:6] is the sub-list for extension type_name
+	6,  // [6:6] is the sub-list for extension extendee
+	0,  // [0:6] is the sub-list for field type_name
 }
 
 func init() { file_profile_proto_init() }
