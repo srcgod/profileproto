@@ -536,6 +536,113 @@ var _ interface {
 	ErrorName() string
 } = SearchProfileResponseValidationError{}
 
+// Validate checks the field values on IdenProfile with the rules defined in
+// the proto definition for this message. If any rules are violated, the first
+// error encountered is returned, or nil if there are no violations.
+func (m *IdenProfile) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on IdenProfile with the rules defined in
+// the proto definition for this message. If any rules are violated, the
+// result is a list of violation errors wrapped in IdenProfileMultiError, or
+// nil if none found.
+func (m *IdenProfile) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *IdenProfile) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	// no validation rules for UserId
+
+	// no validation rules for DisplayName
+
+	// no validation rules for Surname
+
+	// no validation rules for AvatarUrl
+
+	if len(errors) > 0 {
+		return IdenProfileMultiError(errors)
+	}
+
+	return nil
+}
+
+// IdenProfileMultiError is an error wrapping multiple validation errors
+// returned by IdenProfile.ValidateAll() if the designated constraints aren't met.
+type IdenProfileMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m IdenProfileMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m IdenProfileMultiError) AllErrors() []error { return m }
+
+// IdenProfileValidationError is the validation error returned by
+// IdenProfile.Validate if the designated constraints aren't met.
+type IdenProfileValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e IdenProfileValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e IdenProfileValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e IdenProfileValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e IdenProfileValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e IdenProfileValidationError) ErrorName() string { return "IdenProfileValidationError" }
+
+// Error satisfies the builtin error interface
+func (e IdenProfileValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sIdenProfile.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = IdenProfileValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = IdenProfileValidationError{}
+
 // Validate checks the field values on Profile with the rules defined in the
 // proto definition for this message. If any rules are violated, the first
 // error encountered is returned, or nil if there are no violations.
