@@ -75,26 +75,26 @@ func (x *Filter) GetValue() string {
 	return ""
 }
 
-type Empty struct {
+type ProfileEmpty struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
 
-func (x *Empty) Reset() {
-	*x = Empty{}
+func (x *ProfileEmpty) Reset() {
+	*x = ProfileEmpty{}
 	mi := &file_profile_proto_msgTypes[1]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
 
-func (x *Empty) String() string {
+func (x *ProfileEmpty) String() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
-func (*Empty) ProtoMessage() {}
+func (*ProfileEmpty) ProtoMessage() {}
 
-func (x *Empty) ProtoReflect() protoreflect.Message {
+func (x *ProfileEmpty) ProtoReflect() protoreflect.Message {
 	mi := &file_profile_proto_msgTypes[1]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
@@ -106,8 +106,8 @@ func (x *Empty) ProtoReflect() protoreflect.Message {
 	return mi.MessageOf(x)
 }
 
-// Deprecated: Use Empty.ProtoReflect.Descriptor instead.
-func (*Empty) Descriptor() ([]byte, []int) {
+// Deprecated: Use ProfileEmpty.ProtoReflect.Descriptor instead.
+func (*ProfileEmpty) Descriptor() ([]byte, []int) {
 	return file_profile_proto_rawDescGZIP(), []int{1}
 }
 
@@ -786,8 +786,8 @@ const file_profile_proto_rawDesc = "" +
 	"\rprofile.proto\x12\aprofile\x1a google/protobuf/field_mask.proto\x1a\x17validate/validate.proto\"F\n" +
 	"\x06Filter\x12\x1b\n" +
 	"\x03key\x18\x01 \x01(\tB\t\xfaB\x06r\x04\x10\x03\x18\x1eR\x03key\x12\x1f\n" +
-	"\x05value\x18\x02 \x01(\tB\t\xfaB\x06r\x04\x10\x03\x18\x1eR\x05value\"\a\n" +
-	"\x05Empty\"`\n" +
+	"\x05value\x18\x02 \x01(\tB\t\xfaB\x06r\x04\x10\x03\x18\x1eR\x05value\"\x0e\n" +
+	"\fProfileEmpty\"`\n" +
 	"\x14SearchProfileRequest\x12\x1f\n" +
 	"\x05chars\x18\x01 \x01(\tB\t\xfaB\x06r\x04\x10\x03\x182R\x05chars\x12'\n" +
 	"\x06filter\x18\x02 \x03(\v2\x0f.profile.FilterR\x06filter\"I\n" +
@@ -876,7 +876,7 @@ func file_profile_proto_rawDescGZIP() []byte {
 var file_profile_proto_msgTypes = make([]protoimpl.MessageInfo, 13)
 var file_profile_proto_goTypes = []any{
 	(*Filter)(nil),                // 0: profile.Filter
-	(*Empty)(nil),                 // 1: profile.Empty
+	(*ProfileEmpty)(nil),          // 1: profile.ProfileEmpty
 	(*SearchProfileRequest)(nil),  // 2: profile.SearchProfileRequest
 	(*SearchProfileResponse)(nil), // 3: profile.SearchProfileResponse
 	(*IdenProfile)(nil),           // 4: profile.IdenProfile

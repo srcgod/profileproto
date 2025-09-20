@@ -155,21 +155,22 @@ var _ interface {
 	ErrorName() string
 } = FilterValidationError{}
 
-// Validate checks the field values on Empty with the rules defined in the
-// proto definition for this message. If any rules are violated, the first
+// Validate checks the field values on ProfileEmpty with the rules defined in
+// the proto definition for this message. If any rules are violated, the first
 // error encountered is returned, or nil if there are no violations.
-func (m *Empty) Validate() error {
+func (m *ProfileEmpty) Validate() error {
 	return m.validate(false)
 }
 
-// ValidateAll checks the field values on Empty with the rules defined in the
-// proto definition for this message. If any rules are violated, the result is
-// a list of violation errors wrapped in EmptyMultiError, or nil if none found.
-func (m *Empty) ValidateAll() error {
+// ValidateAll checks the field values on ProfileEmpty with the rules defined
+// in the proto definition for this message. If any rules are violated, the
+// result is a list of violation errors wrapped in ProfileEmptyMultiError, or
+// nil if none found.
+func (m *ProfileEmpty) ValidateAll() error {
 	return m.validate(true)
 }
 
-func (m *Empty) validate(all bool) error {
+func (m *ProfileEmpty) validate(all bool) error {
 	if m == nil {
 		return nil
 	}
@@ -177,18 +178,18 @@ func (m *Empty) validate(all bool) error {
 	var errors []error
 
 	if len(errors) > 0 {
-		return EmptyMultiError(errors)
+		return ProfileEmptyMultiError(errors)
 	}
 
 	return nil
 }
 
-// EmptyMultiError is an error wrapping multiple validation errors returned by
-// Empty.ValidateAll() if the designated constraints aren't met.
-type EmptyMultiError []error
+// ProfileEmptyMultiError is an error wrapping multiple validation errors
+// returned by ProfileEmpty.ValidateAll() if the designated constraints aren't met.
+type ProfileEmptyMultiError []error
 
 // Error returns a concatenation of all the error messages it wraps.
-func (m EmptyMultiError) Error() string {
+func (m ProfileEmptyMultiError) Error() string {
 	var msgs []string
 	for _, err := range m {
 		msgs = append(msgs, err.Error())
@@ -197,11 +198,11 @@ func (m EmptyMultiError) Error() string {
 }
 
 // AllErrors returns a list of validation violation errors.
-func (m EmptyMultiError) AllErrors() []error { return m }
+func (m ProfileEmptyMultiError) AllErrors() []error { return m }
 
-// EmptyValidationError is the validation error returned by Empty.Validate if
-// the designated constraints aren't met.
-type EmptyValidationError struct {
+// ProfileEmptyValidationError is the validation error returned by
+// ProfileEmpty.Validate if the designated constraints aren't met.
+type ProfileEmptyValidationError struct {
 	field  string
 	reason string
 	cause  error
@@ -209,22 +210,22 @@ type EmptyValidationError struct {
 }
 
 // Field function returns field value.
-func (e EmptyValidationError) Field() string { return e.field }
+func (e ProfileEmptyValidationError) Field() string { return e.field }
 
 // Reason function returns reason value.
-func (e EmptyValidationError) Reason() string { return e.reason }
+func (e ProfileEmptyValidationError) Reason() string { return e.reason }
 
 // Cause function returns cause value.
-func (e EmptyValidationError) Cause() error { return e.cause }
+func (e ProfileEmptyValidationError) Cause() error { return e.cause }
 
 // Key function returns key value.
-func (e EmptyValidationError) Key() bool { return e.key }
+func (e ProfileEmptyValidationError) Key() bool { return e.key }
 
 // ErrorName returns error name.
-func (e EmptyValidationError) ErrorName() string { return "EmptyValidationError" }
+func (e ProfileEmptyValidationError) ErrorName() string { return "ProfileEmptyValidationError" }
 
 // Error satisfies the builtin error interface
-func (e EmptyValidationError) Error() string {
+func (e ProfileEmptyValidationError) Error() string {
 	cause := ""
 	if e.cause != nil {
 		cause = fmt.Sprintf(" | caused by: %v", e.cause)
@@ -236,14 +237,14 @@ func (e EmptyValidationError) Error() string {
 	}
 
 	return fmt.Sprintf(
-		"invalid %sEmpty.%s: %s%s",
+		"invalid %sProfileEmpty.%s: %s%s",
 		key,
 		e.field,
 		e.reason,
 		cause)
 }
 
-var _ error = EmptyValidationError{}
+var _ error = ProfileEmptyValidationError{}
 
 var _ interface {
 	Field() string
@@ -251,7 +252,7 @@ var _ interface {
 	Key() bool
 	Cause() error
 	ErrorName() string
-} = EmptyValidationError{}
+} = ProfileEmptyValidationError{}
 
 // Validate checks the field values on SearchProfileRequest with the rules
 // defined in the proto definition for this message. If any rules are
