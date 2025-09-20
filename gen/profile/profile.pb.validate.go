@@ -564,7 +564,9 @@ func (m *IdenProfile) validate(all bool) error {
 
 	// no validation rules for Surname
 
-	// no validation rules for AvatarUrl
+	if m.AvatarUrl != nil {
+		// no validation rules for AvatarUrl
+	}
 
 	if len(errors) > 0 {
 		return IdenProfileMultiError(errors)

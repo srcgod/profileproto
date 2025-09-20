@@ -33,7 +33,7 @@ message IdenProfile {
   int64 user_id = 1;
   string display_name = 2;
   string surname = 3;
-  string avatar_url = 4;
+  optional string avatar_url = 4;
 }
 
 message Profile {
